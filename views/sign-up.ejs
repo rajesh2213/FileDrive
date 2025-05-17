@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Drive | Sign-Up</title>
+</head>
+<body>
+    <header><%- include('./partials/header')  %></header>
+    <main>
+        <h2>Sign-Up</h2>
+        <% if(errors){ %>
+            <p style="color: red;"><%= errors[0].msg %></p>
+        <% } %>
+        <form action="/sign-up" method="POST">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" value="<%= user.name || ''  %>" placeholder="Jett">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" value="<%= user.email || ''  %>" placeholder="jett03@gmail.com">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password">
+            <label for="confirmPwd">Confirm Password</label>
+            <input type="password" id="confirmPwd" name="confirmPwd">
+            <button type="submit">Submit</button>
+        </form>
+    </main>
+</body>
+</html>

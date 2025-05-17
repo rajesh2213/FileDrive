@@ -1,0 +1,60 @@
+<div>
+    <button id="new-btn">New</button>
+
+    <div id="new-btn-dropdwon"
+        style="display: none; position: absolute; padding: 10px; background: #fff; border: 1px solid #ccc;">
+        <button id="upload-file-btn">Upload File</button>
+        <button id="create-folder-btn">New Folder</button>
+    </div>
+
+    <form action="/my-drive/create" method="POST" enctype="multipart/form-data" id="upload-form"
+        style="display: none; position: absolute; padding: 10px; background: #fff; border: 1px solid #ccc;">
+        <input type="hidden" name="parentFolderId" id="file-parent-folder">
+        <input type="file" name="files" multiple required>
+        <button type="submit">Upload</button>
+    </form>
+
+    <form action="/my-drive/create-folder" method="POST"
+        style="display: none; position: absolute; padding: 10px; background: #fff; border: 1px solid #ccc;"
+        id="create-folder-form">
+        <label for="folderName">New Folder</label>
+        <input type="text" name="folderName" id="folderName" value="Untitled folder">
+        <input type="hidden" name="parentFolderId" id="folder-parent-folder">
+        <button type="submit">Create</button>
+    </form>
+</div>
+
+<script>
+    const newBtn = document.getElementById('new-btn');
+    const dropdown = document.getElementById('new-btn-dropdwon');
+    const uploadForm = document.getElementById('upload-form');
+    const folderForm = document.querySelector('#create-folder-form')
+
+    const getParentFolderId = (() => {
+        const path = window.location.pathname.split('/')
+        const foldersIdx = path.indexOf('folders')
+        if(foldersIdx != -1 && foldersIdx+1 < path.length){
+            console.log('PATH: ',path[foldersIdx+1])
+            return path[foldersIdx+1]
+        }
+        return null
+    })
+
+    newBtn.addEventListener('click', () => {
+        dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+    });
+
+    document.getElementById('upload-file-btn').addEventListener('click', () => {
+        dropdown.style.display = 'none';
+        uploadForm.style.display = 'block';
+        document.getElementById('file-parent-folder').value = getParentFolderId()
+    });
+
+    document.querySelector('#create-folder-btn').addEventListener('click', () => {
+        dropdown.style.display = 'none';
+        folderForm.style.display = 'block';
+        document.getElementById('folder-parent-folder').value = getParentFolderId()
+    })
+
+
+</script>

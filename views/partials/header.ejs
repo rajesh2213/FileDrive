@@ -1,0 +1,12 @@
+<nav>
+    <div><a href="/">File Driver</a></div>
+    <div>
+        <% if(isAuth){ %>
+            <button><a href="/logout">LogOut</a></button>
+        <% }else{ %>
+            <button><a href="/login">Sign-In</a></button>
+            <button><a href="/sign-up">Sign-Up</a></button>
+        <% } %>
+        
+    </div>
+</nav>
